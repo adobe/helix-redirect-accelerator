@@ -12,7 +12,8 @@
 const { wrap } = require('@adobe/openwhisk-action-utils');
 const { logger } = require('@adobe/openwhisk-action-logger');
 const { wrap: status } = require('@adobe/helix-status');
-const { Response } = require('@adobe/helix-fetch');
+const { updateredirects } = require('./updateredirects');
+const { getData } = require('./utils');
 
 /**
  * This is the main function
@@ -21,9 +22,7 @@ const { Response } = require('@adobe/helix-fetch');
  * @returns {Response} a g
  */
 function main(request, context) {
-  const name = request.url.searchParams.get('name') || 'world';
-  context.log.info(`Saying hello to: ${name}.`);
-  return new Response(`Hello, ${name}.`);
+  return updateredirects(getData(request, ''), context.log);
 }
 
 module.exports.main = wrap(main)

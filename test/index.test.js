@@ -21,6 +21,6 @@ const index = retrofit(main);
 describe('Index Tests', () => {
   it('index function is present', async () => {
     const result = await index();
-    assert.deepEqual(result.body, 'Hello, world.');
+    assert.deepEqual(result.body, 'owner, repo, ref, service, token, version are required parameters');
   });
 });
