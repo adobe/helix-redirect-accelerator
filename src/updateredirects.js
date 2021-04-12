@@ -44,7 +44,7 @@ async function updateredirects({
     'request',
   );
 
-  logger.info(`Updating redirects for service ${service}`);
+  logger.info(`Updating redirects for service ${service} v${version}`);
 
   await update(...redirects);
 

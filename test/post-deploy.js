@@ -21,7 +21,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 createTargets().forEach((target) => {
-  describe(`Post-Deploy Tests (${target.title()})`, () => {
+  describe(`Post-Deploy Tests (${target.title()}) #online`, () => {
     it('Purge a blog post', async () => {
       await chai
         .request(target.host())
