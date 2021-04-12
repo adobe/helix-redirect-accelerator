@@ -33,9 +33,9 @@ describe('Test Utils', () => {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: 'foo=bar',
+      body: 'foo=bar&bar=11',
     });
-    assert.deepStrictEqual(await getData(req, 'foo', 'bar'), { foo: 'bar' });
+    assert.deepStrictEqual(await getData(req, 'foo', 'bar'), { foo: 'bar', bar: 11 });
   });
 
   it('URL encoded body can be parsed', async () => {

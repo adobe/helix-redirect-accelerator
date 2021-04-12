@@ -15,8 +15,13 @@ async function getData(request, ...names) {
     const data = new URLSearchParams(await request.text());
     return names.reduce((prev, name) => {
       if (data.get(name)) {
-      // eslint-disable-next-line no-param-reassign
-        prev[name] = data.get(name);
+        try {
+          // eslint-disable-next-line no-param-reassign
+          prev[name] = Number.parseInt(data.get(name), 10);
+        } catch {
+          // eslint-disable-next-line no-param-reassign
+          prev[name] = data.get(name);
+        }
       }
       return prev;
     }, {});
