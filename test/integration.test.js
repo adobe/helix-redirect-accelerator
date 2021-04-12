@@ -15,8 +15,16 @@ const { condit, logging } = require('@adobe/helix-testutils');
 const { updateredirects } = require('../src/updateredirects');
 
 describe('Integration Test #online', () => {
-  condit('Successfully install redirects', condit.hasenvs(['']), async () => {
-    const res = await updateredirects({}, logging.createTestLogger());
+  condit('Successfully install redirects', condit.hasenvs(['FASTLY_SERVICE_ID', 'HLX_FASTLY_AUTH', 'FASTLY_VERSION']), async () => {
+    const res = await updateredirects({
+      owner: 'trieloff',
+      repo: 'helix-demo',
+      ref: 'c114364cda92f6b2441aacec2111fd093723b76f',
+      service: process.env.FASTLY_SERVICE_ID,
+      token: process.env.HLX_FASTLY_AUTH,
+      version: process.env.FASTLY_VERSION,
+
+    }, logging.createTestLogger());
     assert.ok(res);
-  });
+  }).timeout(20000);
 });

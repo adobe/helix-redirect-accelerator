@@ -29,24 +29,92 @@ async function updateredirects({
 
   const fastly = f(token, service);
 
-  const redirects = config.all().map(({ from, to }) => ({
+  const redirects = await config.all();
+
+  const redirects301 = redirects.filter((r) => r.type === 'permanent').map(({ from, to }) => ({
     condition: condition(from),
     expression: pattern2vcl(to),
   }));
 
-  const update = fastly.headers.update(
+  const update301 = fastly.headers.update(
     version,
     'REQUEST',
     'Created by helix-redirect-accelerator for Redirects',
-    'hlx-acc-redirect',
+    'hlx-301-redirect',
     'set',
-    'http.X-Location',
+    'http.X-301-Location',
+    'request',
+  );
+
+  const redirects302 = redirects.filter((r) => r.type === 'temporary').map(({ from, to }) => ({
+    condition: condition(from),
+    expression: pattern2vcl(to),
+  }));
+
+  const update302 = fastly.headers.update(
+    version,
+    'REQUEST',
+    'Created by helix-redirect-accelerator for Redirects',
+    'hlx-302-redirect',
+    'set',
+    'http.X-302-Location',
     'request',
   );
 
   logger.info(`Updating redirects for service ${service} v${version}`);
 
-  await update(...redirects);
+  // generate a long list of conditions and request headers, each
+  // corresponding to one redirect rule
+  // permanent
+  await update301(...redirects301);
+  // temporary
+  await update302(...redirects302);
+
+  await fastly.writeCondition(version, 'hlx-301-redirect', {
+    name: 'hlx-301-redirect',
+    type: 'request',
+    priority: 101,
+    statement: 'req.http.X-301-Location',
+  });
+
+  await fastly.writeCondition(version, 'hlx-302-redirect', {
+    name: 'hlx-302-redirect',
+    type: 'request',
+    priority: 101,
+    statement: 'req.http.X-302-Location',
+  });
+
+  await fastly.writeCondition(version, 'hlx-any-redirect', {
+    name: 'hlx-any-redirect',
+    type: 'response',
+    statement: '(resp.status == 301 || resp.status == 302) && (req.http.X-301-Location || req.http.X-302-Location)',
+  });
+
+  await fastly.writeResponse(version, 'hlx-301-response', {
+    name: 'hlx-301-response',
+    request_condition: 'hlx-301-redirect',
+    content_type: 'text/html',
+    status: 301,
+    content: 'moved permanently',
+  });
+
+  await fastly.writeResponse(version, 'hlx-302-response', {
+    name: 'hlx-302-response',
+    request_condition: 'hlx-302-redirect',
+    content_type: 'text/html',
+    status: 302,
+    content: 'moved temporarily',
+  });
+
+  await fastly.writeHeader(version, 'hlx-any-location', {
+    name: 'hlx-any-location',
+    type: 'response',
+    response_condition: 'hlx-any-redirect',
+    dst: 'http.Location',
+    src: 'if(req.http.X-301-Location, req.http.X-301-Location, req.http.X-302-Location)',
+  });
+
+  fastly.discard();
 
   return new Response('Redirects updated.');
 }
