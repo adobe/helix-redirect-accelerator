@@ -35,7 +35,7 @@ describe('Test Utils', () => {
       },
       body: 'foo=bar&bar=11',
     });
-    assert.deepStrictEqual(await getData(req, 'foo', 'bar'), { foo: 'bar', bar: 11 });
+    assert.deepStrictEqual(await getData(req, 'foo', 'bar', 'baz'), { foo: 'bar', bar: 11 });
   });
 
   it('URL encoded body can be parsed', async () => {
