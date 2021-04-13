@@ -1,3 +1,18 @@
+# 1.0.0 (2021-04-13)
+
+
+### Bug Fixes
+
+* **deps:** bump helix-shared ([ff1a680](https://github.com/adobe/helix-redirect-accelerator/commit/ff1a68075c2d88fc9140f15096fbe230ead30175))
+* **utils:** support more node versions ([b8ee7d8](https://github.com/adobe/helix-redirect-accelerator/commit/b8ee7d860d99564b27ab07f01a3915fbdbaecea9))
+
+
+### Features
+
+* implement redirects, headers, conditions and responses ([119f7e6](https://github.com/adobe/helix-redirect-accelerator/commit/119f7e6ca5a45a6e988e249aa2e20924786fc71f))
+* **utils:** parse ints in form data ([cbf1382](https://github.com/adobe/helix-redirect-accelerator/commit/cbf138298560603dadae145676451f5dc388d1f9))
+* rough implementation of header setting ([34a5e79](https://github.com/adobe/helix-redirect-accelerator/commit/34a5e79970f4430e63e2252f79174f181357afad))
+
 ## [2.0.2](https://github.com/adobe/helix-service/compare/v2.0.1...v2.0.2) (2021-04-09)
 
 
