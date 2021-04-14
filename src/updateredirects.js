@@ -9,11 +9,16 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-
+const crypto = require('crypto');
 const RedirectConfig = require('@adobe/helix-shared/src/RedirectConfig');
 const { Response } = require('@adobe/helix-fetch');
 const f = require('@adobe/fastly-native-promises');
 const { pattern2vcl, condition } = require('./vcl-utils.js');
+
+function hash(str) {
+  const sha256Hasher = crypto.createHmac('sha256', '');
+  return sha256Hasher.update(str).digest('hex').substr(0, 10);
+}
 
 async function updateredirects({
   owner, repo, ref, service, token, version,
@@ -29,12 +34,54 @@ async function updateredirects({
 
   const fastly = f(token, service);
 
-  const redirects = await config.all();
+  const redirects = config.redirects.filter((r) => !!r.from && !!r.to);
+  const dynamic = config.redirects.filter((r) => !(!!r.from && !!r.to));
 
-  const redirects301 = redirects.filter((r) => r.type === 'permanent').map(({ from, to }) => ({
+  /* eslint-disable no-underscore-dangle */
+  const dynamicdictionaries = dynamic.reduce((p, v) => {
+    p.push({
+      name: `hlx_301_${hash(v._src)}`,
+      values: v.all().then((all) => all.filter((r) => r.type === 'permanent')),
+      type: 'permanent',
+      condition: `table.lookup(hlx_301_${hash(v._src)}, req.url.path)`,
+      expression: `table.lookup(hlx_301_${hash(v._src)}, req.url.path)`,
+    });
+    p.push({
+      name: `hlx_302_${hash(v._src)}`,
+      values: v.all().then((all) => all.filter((r) => r.type === 'temporary')),
+      type: 'temporary',
+      condition: `table.lookup(hlx_302_${hash(v._src)}, req.url.path)`,
+      expression: `table.lookup(hlx_302_${hash(v._src)}, req.url.path)`,
+    });
+    return p;
+  }, []);
+
+  logger.info('Creating directories for dynamic redirects');
+  await Promise.all(dynamicdictionaries.map((dyn) => fastly.writeDictionary(version, dyn.name, {
+    name: dyn.name,
+    write_only: false,
+  })));
+
+  logger.info('Updating edge dictionary values for dynamic redirects');
+  await Promise
+    .all(dynamicdictionaries
+      .map(async ({ name, values }) => {
+        const vals = (await values)
+          .filter((v) => !!v.from && !!v.to)
+          .map((v) => ({
+            op: 'upsert',
+            item_key: v.from,
+            item_value: v.to,
+          }));
+          // do not update dict if the list of values is empty
+        return vals.length && fastly
+          .bulkUpdateDictItems(version, name, ...vals);
+      }));
+
+  const redirects301 = [...redirects.filter((r) => r.type === 'permanent').map(({ from, to }) => ({
     condition: condition(from),
     expression: pattern2vcl(to),
-  }));
+  })), ...dynamicdictionaries.filter((d) => d.type === 'permanent')];
 
   const update301 = fastly.headers.update(
     version,
@@ -46,10 +93,10 @@ async function updateredirects({
     'request',
   );
 
-  const redirects302 = redirects.filter((r) => r.type === 'temporary').map(({ from, to }) => ({
+  const redirects302 = [...redirects.filter((r) => r.type === 'temporary').map(({ from, to }) => ({
     condition: condition(from),
     expression: pattern2vcl(to),
-  }));
+  })), ...dynamicdictionaries.filter((d) => d.type === 'temporary')];
 
   const update302 = fastly.headers.update(
     version,
