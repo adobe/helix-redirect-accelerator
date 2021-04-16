@@ -19,7 +19,7 @@ describe('Integration Test #online', () => {
     const res = await updateredirects({
       owner: 'trieloff',
       repo: 'helix-demo',
-      ref: 'c114364cda92f6b2441aacec2111fd093723b76f',
+      ref: '08444b97e204bee84aca9d07014f24d1be770af7',
       service: process.env.FASTLY_SERVICE_ID,
       token: process.env.HLX_FASTLY_AUTH,
       version: process.env.FASTLY_VERSION,
