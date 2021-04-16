@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/adobe/helix-redirect-accelerator/compare/v1.0.0...v1.1.0) (2021-04-16)
+
+
+### Features
+
+* **fastly:** use edge dictionaries for dynamic redirects ([8ee0ec4](https://github.com/adobe/helix-redirect-accelerator/commit/8ee0ec4893d30925e849300f32bf0057990f298e))
+
 # 1.0.0 (2021-04-13)
 
 
