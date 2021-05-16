@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 const crypto = require('crypto');
-const RedirectConfig = require('@adobe/helix-shared/src/RedirectConfig');
+const { RedirectConfig } = require('@adobe/helix-shared/src');
 const { Response } = require('@adobe/helix-fetch');
 const f = require('@adobe/fastly-native-promises');
 const { pattern2vcl, condition } = require('./vcl-utils.js');
