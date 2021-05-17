@@ -33,7 +33,7 @@
   "homepage": "https://github.com/adobe/helix-redirect-accelerator#readme",
   "dependencies": {
     "@adobe/fastly-native-promises": "1.23.0",
-    "@adobe/helix-fetch": "2.2.0",
+    "@adobe/helix-fetch": "2.2.1",
     "@adobe/helix-shared": "8.0.9",
     "@adobe/helix-status": "9.1.6",
     "@adobe/openwhisk-action-logger": "2.4.4",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@adobe/eslint-config-helix": "1.1.5",
-    "@adobe/helix-deploy": "4.5.1",
+    "@adobe/helix-deploy": "4.6.0",
     "@adobe/helix-testutils": "0.4.5",
     "@adobe/helix-universal": "1.5.0",
     "@semantic-release/changelog": "5.0.1",
