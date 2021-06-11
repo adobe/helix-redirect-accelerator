@@ -32,8 +32,8 @@
   },
   "homepage": "https://github.com/adobe/helix-redirect-accelerator#readme",
   "dependencies": {
-    "@adobe/fastly-native-promises": "1.23.1",
-    "@adobe/helix-fetch": "2.2.1",
+    "@adobe/fastly-native-promises": "1.23.2",
+    "@adobe/helix-fetch": "2.3.0",
     "@adobe/helix-shared": "8.0.15",
     "@adobe/helix-status": "9.1.7",
     "@adobe/openwhisk-action-logger": "2.4.4",
