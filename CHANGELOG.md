@@ -1,3 +1,10 @@
+## [1.1.14](https://github.com/adobe/helix-redirect-accelerator/compare/v1.1.13...v1.1.14) (2021-06-14)
+
+
+### Bug Fixes
+
+* **deps:** update adobe fixes ([#51](https://github.com/adobe/helix-redirect-accelerator/issues/51)) ([361078d](https://github.com/adobe/helix-redirect-accelerator/commit/361078dae1009ce77cd6ca42ba4f690dc3e5ae5e))
+
 ## [1.1.13](https://github.com/adobe/helix-redirect-accelerator/compare/v1.1.12...v1.1.13) (2021-06-13)
 
 
