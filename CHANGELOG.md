@@ -1,3 +1,10 @@
+## [1.1.27](https://github.com/adobe/helix-redirect-accelerator/compare/v1.1.26...v1.1.27) (2021-08-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-shared to v8.0.29 ([#81](https://github.com/adobe/helix-redirect-accelerator/issues/81)) ([e3ca26f](https://github.com/adobe/helix-redirect-accelerator/commit/e3ca26f8580e3e4444fa7eb06d416b986069ce35))
+
 ## [1.1.26](https://github.com/adobe/helix-redirect-accelerator/compare/v1.1.25...v1.1.26) (2021-08-09)
 
 
