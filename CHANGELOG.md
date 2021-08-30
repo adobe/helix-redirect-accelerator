@@ -1,3 +1,10 @@
+## [1.1.33](https://github.com/adobe/helix-redirect-accelerator/compare/v1.1.32...v1.1.33) (2021-08-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/fastly-native-promises to v1.23.5 ([#92](https://github.com/adobe/helix-redirect-accelerator/issues/92)) ([9a9674b](https://github.com/adobe/helix-redirect-accelerator/commit/9a9674b417fc6bf6c3f168c11d59f097253f58e2))
+
 ## [1.1.32](https://github.com/adobe/helix-redirect-accelerator/compare/v1.1.31...v1.1.32) (2021-08-30)
 
 
