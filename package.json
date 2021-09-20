@@ -34,7 +34,7 @@
   "dependencies": {
     "@adobe/fastly-native-promises": "1.23.5",
     "@adobe/helix-fetch": "2.4.2",
-    "@adobe/helix-shared": "8.0.40",
+    "@adobe/helix-shared": "8.0.41",
     "@adobe/helix-status": "9.2.2",
     "@adobe/openwhisk-action-logger": "2.4.5",
     "@adobe/openwhisk-action-utils": "4.4.5"
