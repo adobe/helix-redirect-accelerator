@@ -36,8 +36,8 @@
     "@adobe/helix-fetch": "2.4.2",
     "@adobe/helix-shared": "8.0.41",
     "@adobe/helix-status": "9.2.2",
-    "@adobe/openwhisk-action-logger": "2.4.5",
-    "@adobe/openwhisk-action-utils": "4.4.5"
+    "@adobe/openwhisk-action-logger": "2.4.6",
+    "@adobe/openwhisk-action-utils": "4.4.6"
   },
   "devDependencies": {
     "@adobe/eslint-config-helix": "1.1.5",
