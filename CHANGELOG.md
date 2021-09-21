@@ -1,3 +1,10 @@
+## [1.1.40](https://github.com/adobe/helix-redirect-accelerator/compare/v1.1.39...v1.1.40) (2021-09-21)
+
+
+### Bug Fixes
+
+* use node 14 ([d1411bc](https://github.com/adobe/helix-redirect-accelerator/commit/d1411bc8e1ef80444d3f5e621166a72c8b04e195))
+
 ## [1.1.39](https://github.com/adobe/helix-redirect-accelerator/compare/v1.1.38...v1.1.39) (2021-09-20)
 
 
