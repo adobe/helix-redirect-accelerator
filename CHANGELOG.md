@@ -1,3 +1,10 @@
+## [1.1.45](https://github.com/adobe/helix-redirect-accelerator/compare/v1.1.44...v1.1.45) (2021-10-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @adobe/helix-fetch to v3 ([#123](https://github.com/adobe/helix-redirect-accelerator/issues/123)) ([4c9579a](https://github.com/adobe/helix-redirect-accelerator/commit/4c9579a0aa3391131f2344b4a0dd9f8619422614))
+
 ## [1.1.44](https://github.com/adobe/helix-redirect-accelerator/compare/v1.1.43...v1.1.44) (2021-10-09)
 
 
