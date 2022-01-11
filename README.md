@@ -1,3 +1,5 @@
+> **Note: this repository and respective service is no longer maintained**
+
 # Helix Redirect Accelerator
 
 > Create Helix redirects in a Fastly service config
